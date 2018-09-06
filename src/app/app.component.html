@@ -1,0 +1,34 @@
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-lg-6 ">
+			<h1 class="todoapp">todos</h1>
+			<input type="text" class="form-control new-todo" (keyup.enter)="pushItem()" [(ngModel)]="newItem" placeholder="What needs to be done?">
+			<ul class="list-group">
+				<li *ngFor="let item of items | filter : itemFilter; let ind = index" class="list-group-item" (dblclick)="dbClickInput(item)">
+					<input type="checkbox" (click)="changeStatus(item)" [checked]="item.isCompleted">
+					<span class="label-padding">{{item.title}}</span>
+					<span (click)="removeItem(ind)" class="close close-style" (dblclick)="dbClick" *ngIf="newItem.length > -1">x</span>
+					<input autofocus [hidden]="!item.edit" (keyup.enter)="editItem($event, item)" [value]="item.title" type="text" class="form-control new-todo style-edit">
+				</li>
+			</ul>
+			<footer class="footer" >
+				<ul class="filters" class="nav bcg-footer">
+					<li>
+						<a href="#/" (click)="changeFilter('All')" [ngStyle]="{ backgroundColor: getColor('All') }" class="filter_select">All</a>
+						<!-- <a href="#/" (click)="getTodoListFromStorage()" [ngStyle]="{ backgroundColor: getColor('All') }" class="filter_select">All</a> -->
+					</li>
+					<li>
+						<a href="#/active" (click)="changeFilter('Active')" [ngStyle]="{ backgroundColor: getColor('Active') }" class="filter_select">Active</a>
+					</li>
+					<li>
+						<a href="#/completed" (click)="changeFilter('Completed')" [ngStyle]="{ backgroundColor: getColor('Completed') }" class="filter_select" >Completed</a>
+					</li>	 
+					<li>
+						<a href="#/Сlear "(click)="ClearItem()"  class="filter_select clearAll">Clear All</a>
+						<!-- <a href="#/Сlear" (click)="saveTodoListToStorage()"  class="filter_select clearAll">Clear All</a> -->
+					</li>
+				</ul> 
+			</footer>
+		</div>
+	</div>
+</div>
